@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liss Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+
+        html,
+        body {
+            font-family: 'Fira Mono', monospace;
+            background-color: #05071a;
+            color: #d1d5db;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Darker blue color for highlights */
+        .blue-text {
+            color: #1e40af !important;
+        }
+
+        /* Soft border blue */
+        .blue-border {
+            border-color: #1e40af;
+        }
+
+        /* Typing container styling */
+        #typing {
+            font-weight: 600;
+            color: #1e40af;
+            min-height: 1.5rem;
+            border-right: 2px solid #1e40af;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        /* Modal background */
+        .modal-bg {
+            background: rgba(5, 7, 26, 0.9);
+            backdrop-filter: blur(6px);
+        }
+
+        /* Carousel arrows */
+        .arrow-btn {
+            cursor: pointer;
+            user-select: none;
+            font-size: 2rem;
+            color: #1e40af;
+            transition: color 0.2s ease;
+        }
+
+        .arrow-btn:hover {
+            color: #4338ca;
+        }
+
+        /* Profile image with subtle radius */
+        .profile-img {
+            width: 9rem;
+            height: 9rem;
+            object-fit: cover;
+            border-radius: 0.75rem;
+        }
+
+        /* Logo image square */
+        .logo-img {
+            width: 2.5rem;
+            height: 2.5rem;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        /* Section titles full underline and bold */
+        section h2 {
+            border-bottom-width: 2px;
+            border-color: #1e40af;
+            padding-bottom: 0.25rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            font-weight: 900;
+            text-align: left;
+        }
+
+        /* Container for description matching title width */
+        .description-container,
+        .languages-container,
+        .info-container {
+            max-width: 100%;
+            padding-left: 1.5rem;
+            border-left: 6px solid #1e40af;
+            margin-bottom: 1.5rem;
+            background: transparent;
+            text-align: left;
+        }
+
+        .description-container p,
+        .languages-container ul,
+        .info-container ul {
+            margin: 0;
+            padding-top: 0.25rem;
+        }
+
+        .info-container ul li {
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        /* Minimalist and elegant cards for Pendidikan, Pengalaman, Sertifikasi */
+        .info-container {
+            background-color: #0b1124;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 8px rgba(30, 64, 175, 0.2);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .info-container:hover {
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Programming languages list styling to match Description width with left border */
+        .languages-list {
+            list-style: none;
+            margin: 0;
+            padding-left: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            justify-content: start !important;
+        }
+
+        .languages-list li {
+            background-color: #1e40af;
+            border-radius: 9999px;
+            color: #e0e7ff;
+            font-weight: 700;
+            padding: 0.3rem 1.1rem;
+            margin: 0.25rem 0.5rem 0.25rem 0;
+            box-shadow: 0 3px 8px rgba(59, 130, 246, 0.7);
+            font-size: 0.9rem;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .languages-list li:hover {
+            background-color: #2563eb;
+            box-shadow: 0 5px 12px rgba(37, 99, 235, 0.9);
+        }
+
+        /* Projects grid items with image and text */
+        .project-card {
+            background-color: #131b3a;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .project-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 22px rgba(30, 64, 175, 0.65);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 0.75rem;
+        }
+
+        .project-info h3 {
+            color: #3b82f6 !important;
+            font-weight: 700;
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .project-info p {
+            color: #93c5fd;
+            font-size: 1rem;
+            margin-top: 0.15rem;
+        }
+
+        .project-card:hover .project-info h3 {
+            color: #60a5fa;
+        }
+
+        /* Contact icons container */
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        .contact-icons a {
+            color: #d1d5db;
+            font-size: 2.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .contact-icons a:hover {
+            color: #3b82f6;
+        }
+
+        /* Responsive container padding adjustment */
+        .container-responsive {
+            max-width: 80rem;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .container-responsive {
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container-responsive {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container-responsive {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+        }
+
+        /* Align all section paragraph and ul to left */
+        section p,
+        section ul {
+            text-align: left;
+        }
+    </style>
+    <!-- FontAwesome CDN for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="min-h-screen container-responsive py-6 flex flex-col space-y-12">
+        <!-- Header -->
+        <header
+            class="flex flex-col md:flex-row items-center justify-center md:items-start md:space-x-8 text-center md:text-left">
+            <div class="flex-shrink-0 border-4 blue-border overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80"
+                    alt="Liss Photo" class="profile-img">
+            </div>
+            <div class="mt-6 md:mt-0 flex flex-col justify-center text-left">
+                <h1
+                    class="flex items-center justify-center md:justify-start text-4xl font-extrabold blue-text tracking-wide">
+                    Liss
+                    <img src="https://upload.wikimedia.org/wikipedia/en/e/ed/Manchester_City_FC_badge.svg" alt="Logo"
+                        class="ml-3 logo-img shadow-md">
+                </h1>
+                <div class="mt-2 h-7">
+                    <span id="typing"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Description -->
+        <section>
+            <h2 class="blue-text">Description</h2>
+            <div class="description-container">
+                <p>I am a passionate full-stack developer and designer dedicated to crafting beautiful, performant web
+                    applications with a sleek minimalist style. Combining creativity with clean code, I strive to build
+                    experiences that are intuitive and enjoyable for all users.</p>
+            </div>
+        </section>
+
+        <!-- Pendidikan -->
+        <section>
+            <h2 class="blue-text">Pendidikan</h2>
+            <div class="info-container mx-auto">
+                <ul>
+                    <li><span class="font-semibold">B.S. Computer Science</span> - University of Technology, 2018</li>
+                    <li><span class="font-semibold">M.A. Design & Innovation</span> - Creative Arts College, 2021</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Pengalaman Kerja -->
+        <section>
+            <h2 class="blue-text">Pengalaman Kerja</h2>
+            <div class="info-container mx-auto">
+                <ul>
+                    <li><span class="font-semibold">Senior Web Developer</span> - Tech Solutions Inc. (2021 - Present)
+                    </li>
+                    <li><span class="font-semibold">UI/UX Designer</span> - Digital Creatives (2018 - 2021)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Certification -->
+        <section>
+            <h2 class="blue-text">Sertifikasi</h2>
+            <div class="info-container mx-auto">
+                <ul>
+                    <li>Full-Stack Web Development Certification - FreeCodeCamp</li>
+                    <li>Advanced JavaScript Nanodegree - Udacity</li>
+                    <li>UX Design Professional Certificate - Coursera</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Bahasa Pemrograman -->
+        <section>
+            <h2 class="blue-text">Bahasa Pemrograman</h2>
+            <div class="languages-container mx-auto">
+                <ul class="languages-list">
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                    <li>TypeScript</li>
+                    <li>HTML & CSS</li>
+                    <li>React</li>
+                    <li>Node.js</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Proyek -->
+        <section>
+            <h2 class="blue-text">Proyek</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div class="project-card" tabindex="0" role="button" aria-pressed="false" onclick="openModal(0)">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+                        alt="Project Aurora" class="project-img" />
+                    <div class="project-info">
+                        <h3>Project Aurora</h3>
+                        <p>React, TailwindCSS, Node.js</p>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0" role="button" aria-pressed="false" onclick="openModal(1)">
+                    <img src="https://images.unsplash.com/photo-1556909194-47727bd30e76?auto=format&fit=crop&w=800&q=80"
+                        alt="Neon Dashboard" class="project-img" />
+                    <div class="project-info">
+                        <h3>Neon Dashboard</h3>
+                        <p>Vue.js, Chart.js, Firebase</p>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0" role="button" aria-pressed="false" onclick="openModal(2)">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+                        alt="Portfolio CMS" class="project-img" />
+                    <div class="project-info">
+                        <h3>Portfolio CMS</h3>
+                        <p>Next.js, GraphQL</p>
+                    </div>
+                </div>
+                <div class="project-card" tabindex="0" role="button" aria-pressed="false" onclick="openModal(2)">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+                        alt="Portfolio CMS" class="project-img" />
+                    <div class="project-info">
+                        <h3>Portfolio CMS</h3>
+                        <p>Next.js, GraphQL</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="max-w-xl mx-auto text-center space-y-4">
+            <h2 class="blue-text">Contact Me</h2>
+            <div class="contact-icons">
+                <a href="https://instagram.com/yourprofile" target="_blank" aria-label="Instagram"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="mailto:youremail@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/yourgithub" target="_blank" aria-label="GitHub"><i
+                        class="fab fa-github"></i></a>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-500 text-sm py-6 select-none">
+            &copy; 2023 Liss. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 flex items-center justify-center modal-bg hidden z-50">
+        <div class="bg-gray-900 rounded-xl max-w-3xl w-full mx-4 p-6 shadow-lg relative">
+            <button onclick="closeModal()" aria-label="Close modal"
+                class="absolute top-4 right-4 text-gray-400 hover:text-blue-600 text-3xl font-bold focus:outline-none">&times;</button>
+
+            <!-- Carousel -->
+            <div class="relative">
+                <img id="modal-image" src="" alt="Project image" class="w-full h-64 object-cover rounded-lg select-none"
+                    draggable="false" />
+                <button onclick="prevSlide()" aria-label="Previous image"
+                    class="arrow-btn absolute top-1/2 left-3 -translate-y-1/2 bg-black bg-opacity-50 rounded-full p-1 hover:bg-opacity-70">&lt;</button>
+                <button onclick="nextSlide()" aria-label="Next image"
+                    class="arrow-btn absolute top-1/2 right-3 -translate-y-1/2 bg-black bg-opacity-50 rounded-full p-1 hover:bg-opacity-70">&gt;</button>
+            </div>
+
+            <h3 id="modal-title" class="text-3xl font-bold blue-text mt-5"></h3>
+            <p id="modal-description" class="mt-3 text-gray-300 leading-relaxed"></p>
+            <p id="modal-language" class="mt-3 text-blue-500 font-semibold"></p>
+            <a id="modal-github" href="#" target="_blank" rel="noopener"
+                class="inline-block mt-5 px-6 py-3 border border-blue-500 rounded-lg blue-text hover:bg-blue-600 hover:bg-opacity-20 transition-all">View
+                on GitHub</a>
+        </div>
+    </div>
+
+    <script>
+        // Typing Professions Animation with no CSS typing animation
+        const professions = [
+            'Full-Stack Developer',
+            'UI/UX Designer',
+            'Open Source Contributor',
+            'Tech Speaker'
+        ];
+        let currentProfession = 0;
+        const typingEl = document.getElementById('typing');
+
+        function typeProfession() {
+            const text = professions[currentProfession];
+            let index = 0;
+            typingEl.textContent = '';
+            const interval = setInterval(() => {
+                typingEl.textContent += text[index];
+                index++;
+                if (index === text.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        eraseProfession();
+                    }, 2000);
+                }
+            }, 120);
+        }
+
+        function eraseProfession() {
+            let text = typingEl.textContent;
+            let index = text.length;
+            const interval = setInterval(() => {
+                typingEl.textContent = text.substring(0, index - 1);
+                index--;
+                if (index === 0) {
+                    clearInterval(interval);
+                    currentProfession = (currentProfession + 1) % professions.length;
+                    setTimeout(() => {
+                        typeProfession();
+                    }, 300);
+                }
+            }, 60);
+        }
+
+        typeProfession();
+
+        // Projects Data with images
+        const projects = [
+            {
+                title: 'Project Aurora',
+                description: 'A vibrant front-end web app built with React and Tailwind CSS, focusing on performance and accessibility.',
+                languages: 'React, TailwindCSS, Node.js',
+                github: 'https://github.com/yourgithub/project-aurora',
+                images: [
+                    'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1523475496153-3d6cc01c7d9e?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                title: 'Neon Dashboard',
+                description: 'A sleek dashboard application with real-time data visualization using Vue.js and Chart.js integration.',
+                languages: 'Vue.js, Chart.js, Firebase',
+                github: 'https://github.com/yourgithub/neon-dashboard',
+                images: [
+                    'https://images.unsplash.com/photo-1556909194-47727bd30e76?auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80'
+                ]
+            },
+            {
+                title: 'Portfolio CMS',
+                description: 'A content management system tailored for portfolios using Next.js and GraphQL to enable dynamic updates.',
+                languages: 'Next.js, GraphQL',
+                github: 'https://github.com/yourgithub/portfolio-cms',
+                images: [
+                    'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80'
+                ]
+            }
+        ];
+
+        let currentProjectIndex = 0;
+        let currentImageIndex = 0;
+        let slideInterval;
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalLanguage = document.getElementById('modal-language');
+        const modalImage = document.getElementById('modal-image');
+        const modalGithub = document.getElementById('modal-github');
+
+        function showSlide(index) {
+            const project = projects[currentProjectIndex];
+            if (index < 0) {
+                currentImageIndex = project.images.length - 1;
+            } else if (index >= project.images.length) {
+                currentImageIndex = 0;
+            } else {
+                currentImageIndex = index;
+            }
+            modalImage.src = project.images[currentImageIndex];
+            modalImage.alt = project.title + ' image ' + (currentImageIndex + 1);
+        }
+
+        function nextSlide() {
+            showSlide(currentImageIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentImageIndex - 1);
+        }
+
+        function startAutoSlide() {
+            slideInterval = setInterval(() => {
+                nextSlide();
+            }, 4000);
+        }
+        function stopAutoSlide() {
+            clearInterval(slideInterval);
+        }
+
+        function openModal(projectIndex) {
+            currentProjectIndex = projectIndex;
+            currentImageIndex = 0;
+            const project = projects[projectIndex];
+            modalTitle.textContent = project.title;
+            modalDescription.textContent = project.description;
+            modalLanguage.textContent = 'Languages: ' + project.languages;
+            modalGithub.href = project.github;
+            showSlide(0);
+            modal.classList.remove('hidden');
+            startAutoSlide();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            stopAutoSlide();
+            document.body.style.overflow = '';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+            }
+        });
+    </script>
+</body>
+
+</html>
